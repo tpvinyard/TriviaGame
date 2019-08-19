@@ -35,7 +35,7 @@ $(document).ready(function() {
         showQuestion: function() {
             $('#question').text(questions[Object.keys(questions)[game.questionIterator]]);
             for (let i=0; i < answers.answers1.length; i++) {
-                $('#question').append(`<button class="btn">${answers[Object.keys(answers)[game.answerIterator]][i]}<button>`);
+                $('#question').append(`<button type="button" class="btn">${answers[Object.keys(answers)[game.answerIterator]][i]}</button>`);
 
             }
 
