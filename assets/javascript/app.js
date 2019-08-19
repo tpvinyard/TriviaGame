@@ -3,6 +3,8 @@ $(document).ready(function() {
 
     let timeLeft = 31;
     let intervalId;
+    let questionIterator;
+    let answerIterator;
 
 
     const questions = {
@@ -12,12 +14,12 @@ $(document).ready(function() {
 
     const answers = {
         answers1: ['something', 'nothing', 'something he can\'t refuse', '$5'],        
-        answer2: ['Mikey', 'Tommy', 'Fredo', 'The Godfather']
+        answers2: ['Mikey', 'Tommy', 'Fredo', 'The Godfather']
     }
 
     const game = {
         correctAnswer: [2,1],
-        questionIterator: 0,
+        questionIterator: 1,
         answerIterator: 0,
 
         questionTimer: function() {
@@ -31,9 +33,10 @@ $(document).ready(function() {
         },
 
         showQuestion: function() {
-            $('#question').text(Object.keys(questions)[questionIterator]);
+            $('#question').text(questions[Object.keys(questions)[game.questionIterator]]);
             for (let i=0; i < answers.answers1.length; i++) {
-                $('#question').append
+                $('#question').append(`<button class="btn">${answers[Object.keys(answers)[game.answerIterator]][i]}<button>`);
+
             }
 
         },
@@ -48,7 +51,9 @@ $(document).ready(function() {
     }
 
     $('#start-button').on('click', function() {
-
+        game.questionTimer();
+        game.showQuestion();
+        $('#start-button').hide();
     });
 
 });
