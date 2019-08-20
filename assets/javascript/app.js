@@ -39,15 +39,16 @@ $(document).ready(function() {
             for (let i=0; i < answers.answers1.length; i++) {
                 $('#answer').append(`<div><button type="button" class="btn btn-primary answers">${answers[Object.keys(answers)[game.questionIterator]][i]}</button></div>`);
             }
-            questionIterator++;
+            game.questionIterator++;
         },
 
         showCorrect: function() {
+            $('.questionBlock').hide();
 
         },
 
         showIncorrect: function() {
-
+            $('.questionBlock').hide();
         },
 
         reset: function() {
@@ -64,19 +65,16 @@ $(document).ready(function() {
     });
 
     $('.questionBlock').on('click', 'button.answers',function() {
-        console.log($(this).text())
-        //if answer is correct
+        setTimeout(game.showQuestion,5000);
         if ($(this).text() == answers[Object.keys(answers)[game.questionIterator]][game.correctAnswer[game.questionIterator]]) {
             game.showCorrect();
             game.numberOfCorrectAnswers++;
-            setTimeout(game.showQuestion(),5000);
         } 
 
         //if answer is incorrect
         else {
             game.showIncorrect();
             game.numberOfIncorrectAnswers++
-            setTimeout(game.showQuestion(),5000);
         }
     });
 
