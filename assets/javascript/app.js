@@ -1,7 +1,7 @@
 $(document).ready(function() {
 
 
-    let timeLeft = 31;
+    let timeLeft = 30;
     let intervalId;
     let questionIterator;
     let answerIterator;
@@ -17,13 +17,19 @@ $(document).ready(function() {
         answers2: ['Mikey', 'Tommy', 'Fredo', 'The Godfather']
     }
 
+    const correctAnswerImages = ['offer.gif'];
+
+    const incorrectAnswerImages = [];
+
     const game = {
-        correctAnswer: [2,1],
+        correctAnswerArray: [2,1],
         questionIterator: 0,
         numberOfCorrectAnswers: 0,
         numberOfIncorrectAnswers: 0,
 
         questionTimer: function() {
+            timeLeft = 30;
+            $("#time-remaining").text(`Time remaining: 30 seconds`)
             intervalId = setInterval(game.countDown, 1000);
         },
 
@@ -34,44 +40,54 @@ $(document).ready(function() {
         },
 
         showQuestion: function() {
+            game.questionTimer();
+            $('.resultBlock').hide();
             $('.questionBlock').show();
             $('#question').text(questions[Object.keys(questions)[game.questionIterator]]);
             for (let i=0; i < answers.answers1.length; i++) {
                 $('#answer').append(`<div><button type="button" class="btn btn-primary answers">${answers[Object.keys(answers)[game.questionIterator]][i]}</button></div>`);
             }
-            game.questionIterator++;
         },
 
         showCorrect: function() {
             $('.questionBlock').hide();
-
+            $('.resultBlock').show();
+            $('#rightOrWrong').text('Correct!');
+            $('#resultImage').html(`<img class='img-fluid' src='assets/images/${correctAnswerImages[game.questionIterator]}'>`);
+            game.questionIterator++;
         },
 
         showIncorrect: function() {
             $('.questionBlock').hide();
+            $('.resultBlock').show();
+            $('#rightOrWrong').text('Wrong!');
+            $('#correctAnswer').text(`The correct answer was: '${answers[Object.keys(answers)[game.questionIterator]][game.correctAnswerArray[game.questionIterator]]}'`);
+            $('#resultImage').html(`<img class='img-fluid' src='assets/images/${correctAnswerImages[game.questionIterator]}'>`);
+            game.questionIterator++;
         },
 
         reset: function() {
-            timeLeft = 31;
-            game.numberOfCorrectAnswers = 0;
-            game.numberOfIncorrectAnswers = 0;
+
         }
     }
 
     $('#start-button').on('click', function() {
-        game.questionTimer();
         game.showQuestion();
         $('#start-button').hide();
     });
 
     $('.questionBlock').on('click', 'button.answers',function() {
         setTimeout(game.showQuestion,5000);
-        if ($(this).text() == answers[Object.keys(answers)[game.questionIterator]][game.correctAnswer[game.questionIterator]]) {
+        $('#answer').empty();
+        clearInterval(intervalId);
+
+        //answer correct
+        if ($(this).text() == answers[Object.keys(answers)[game.questionIterator]][game.correctAnswerArray[game.questionIterator]]) {
             game.showCorrect();
             game.numberOfCorrectAnswers++;
         } 
 
-        //if answer is incorrect
+        //answer incorrect
         else {
             game.showIncorrect();
             game.numberOfIncorrectAnswers++
