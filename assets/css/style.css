@@ -1,0 +1,20 @@
+body {
+    background-image: url('./../images/background.jpg');
+}
+
+#triviaSection {
+    background-color: #FED90F;
+    height: 500px;
+    text-align: center;
+    padding-top: 30px;
+}
+
+.center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#area {
+    height: 100vh;
+}
