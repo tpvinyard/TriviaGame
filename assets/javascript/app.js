@@ -55,18 +55,32 @@ $(document).ready(function() {
 
         },
 
-        showQuestion: function() {
-            game.questionTimer();
+        endGame: function() {
+            console.log('made it here!');
+            $('.questionBlock').hide();
             $('.resultBlock').hide();
-            $('.questionBlock').show();
-            $('#question').text(questions[Object.keys(questions)[game.questionIterator]]);
-            for (let i=0; i < answers.answers1.length; i++) {
-                $('#answer').append(`<div><button type="button" class="btn btn-primary answers">${answers[Object.keys(answers)[game.questionIterator]][i]}</button></div>`);
+            $('.endBlock').show();
+            $('#correctAnswerTotal').text('Number of correct answers: ' + game.numberOfCorrectAnswers);
+            $('#incorrectAnswerTotal').text('Number of correct answers: ' + game.numberOfIncorrectAnswers);           
+        },
+
+        showQuestion: function() {
+            if (game.questionIterator === 10) {
+                game.endGame();
+            } else {
+            game.questionTimer();
+                $('.resultBlock').hide();
+                $('.questionBlock').show();
+                $('#question').text(questions[Object.keys(questions)[game.questionIterator]]);
+                for (let i=0; i < answers.answers1.length; i++) {
+                    $('#answer').append(`<div><button type="button" class="btn btn-primary answers">${answers[Object.keys(answers)[game.questionIterator]][i]}</button></div>`);
+                }
             }
         },
 
         showCorrect: function() {
             $('.questionBlock').hide();
+            $('#correctAnswer').empty();
             $('.resultBlock').show();
             $('#rightOrWrong').text('Correct!');
             $('#resultImage').html(`<img class='img-fluid' src='assets/images/${correctAnswerImages[game.questionIterator]}'>`);
@@ -76,6 +90,7 @@ $(document).ready(function() {
             $('.questionBlock').hide();
             $('.resultBlock').show();
             $('#rightOrWrong').text('Wrong!');
+            console.log(answers[Object.keys(answers)[game.questionIterator]][game.correctAnswerArray[game.questionIterator]])
             $('#correctAnswer').text(`The correct answer was: '${answers[Object.keys(answers)[game.questionIterator]][game.correctAnswerArray[game.questionIterator]]}'`);
             $('#resultImage').html(`<img class='img-fluid' src='assets/images/${incorrectAnswerImages[game.questionIterator]}'>`);
         },
@@ -104,17 +119,10 @@ $(document).ready(function() {
         //answer incorrect
         else {
             game.showIncorrect();
-            game.numberOfIncorrectAnswers++
+            game.numberOfIncorrectAnswers++;
         }
 
         game.questionIterator++;
-
-        if (game.questionIterator = 10) {
-            setTimeout(clearTimeout(delayNextQuestion), 3000);
-            $('.questionBlock').hide();
-            $('.resultBlock').show();
-            $('#reset-button').show()
-        }
 
     });
 
