@@ -1,35 +1,51 @@
 $(document).ready(function() {
 
 
-    let timeLeft = 30;
+    let timeLeft = 10;
     let intervalId;
     let questionIterator;
     let answerIterator;
 
 
     const questions = {
-        question1: 'What is the offer?',
-        question2: 'Who is a hot head?',
+        question1: 'What is Bart\'s favorite hobby?',
+        question2: 'What is the name of the bar that Homer frequents?',
+        question3: 'What phrase does Mr. Burns utter when pleased?',
+        question4: 'What instrument does Lisa play?',
+        question5: 'Who is the local practicing physician that has no license?',
+        question6: 'What is the name of Homer\'s pet lobster?',
+        question7: 'Who was Mr. Plow?',
+        question8: 'What car is two lanes wide and also 65 tons of American pride?',
+        question9: 'What character is the basis of the Valentine\'s Day card that Lisa gives Ralph?',
+        question10: 'What state is Springfield, home of the Simpsons, in?'
     }
 
     const answers = {
-        answers1: ['something', 'nothing', 'something he can\'t refuse', '$5'],        
-        answers2: ['Mikey', 'Tommy', 'Fredo', 'The Godfather']
+        answers1: ['Skateboarding', 'Rollerblading', 'Running', 'Triathlons'],        
+        answers2: ['Sandy\'s Hangout','O\'Malley\'s Pub','Moe\'s Tavern','The Krusty Krab'],
+        answers3: ['Excellent','Wonderful','Fantastic','My Precious'],
+        answers4: ['Clarinet', 'Drums', 'Trumpet', 'Saxaphone'],
+        answers5: ['Dr. Steve', 'Dr. Nick', 'Dr. John', 'Dr. Phil'],
+        answers6: ['Butters','Pinchy', 'Rudolph', 'Red'],
+        answers7: ['Bart', 'Barnie', 'Moe', 'Homer'],
+        answers8: ['Granite-gripper', 'Stonecracker', 'Canyonero','Excursion'],
+        answers9: ['Snoopy', 'Thomas the Tank Engine', 'Garfield', 'Pikachu'],
+        answers10: ['Illinois', 'Ohio', 'Kentucky', 'Not any state!']
     }
 
-    const correctAnswerImages = ['offer.gif'];
+    const correctAnswerImages = ['bart.gif', 'moe.gif', 'excellent.gif', 'lisa.gif', 'nick.gif', 'pinchy.gif', 'plow.gif', 'canyonero.gif', 'choo.gif', 'springfield.gif'];
 
-    const incorrectAnswerImages = [];
+    const incorrectAnswerImages = ['doh1.gif','doh2.gif','doh3.gif','doh4.gif','doh5.gif','doh6.gif','doh7.gif','doh8.gif','doh9.gif','doh10.gif',];
 
     const game = {
-        correctAnswerArray: [2,1],
+        correctAnswerArray: [0,2,0,3,1,1,3,2,1,3],
         questionIterator: 0,
         numberOfCorrectAnswers: 0,
         numberOfIncorrectAnswers: 0,
 
         questionTimer: function() {
-            timeLeft = 30;
-            $("#time-remaining").text(`Time remaining: 30 seconds`)
+            timeLeft = 10;
+            $("#time-remaining").text(`Time remaining: 10 seconds`)
             intervalId = setInterval(game.countDown, 1000);
         },
 
@@ -54,7 +70,6 @@ $(document).ready(function() {
             $('.resultBlock').show();
             $('#rightOrWrong').text('Correct!');
             $('#resultImage').html(`<img class='img-fluid' src='assets/images/${correctAnswerImages[game.questionIterator]}'>`);
-            game.questionIterator++;
         },
 
         showIncorrect: function() {
@@ -62,8 +77,7 @@ $(document).ready(function() {
             $('.resultBlock').show();
             $('#rightOrWrong').text('Wrong!');
             $('#correctAnswer').text(`The correct answer was: '${answers[Object.keys(answers)[game.questionIterator]][game.correctAnswerArray[game.questionIterator]]}'`);
-            $('#resultImage').html(`<img class='img-fluid' src='assets/images/${correctAnswerImages[game.questionIterator]}'>`);
-            game.questionIterator++;
+            $('#resultImage').html(`<img class='img-fluid' src='assets/images/${incorrectAnswerImages[game.questionIterator]}'>`);
         },
 
         reset: function() {
@@ -77,7 +91,7 @@ $(document).ready(function() {
     });
 
     $('.questionBlock').on('click', 'button.answers',function() {
-        setTimeout(game.showQuestion,5000);
+        delayNextQuestion = setTimeout(game.showQuestion,4000);
         $('#answer').empty();
         clearInterval(intervalId);
 
@@ -92,6 +106,16 @@ $(document).ready(function() {
             game.showIncorrect();
             game.numberOfIncorrectAnswers++
         }
+
+        game.questionIterator++;
+
+        if (game.questionIterator = 10) {
+            setTimeout(clearTimeout(delayNextQuestion), 3000);
+            $('.questionBlock').hide();
+            $('.resultBlock').show();
+            $('#reset-button').show()
+        }
+
     });
 
 });
