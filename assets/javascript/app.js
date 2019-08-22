@@ -56,7 +56,6 @@ $(document).ready(function() {
         },
 
         endGame: function() {
-            console.log('made it here!');
             $('.questionBlock').hide();
             $('.resultBlock').hide();
             $('.endBlock').show();
@@ -90,13 +89,19 @@ $(document).ready(function() {
             $('.questionBlock').hide();
             $('.resultBlock').show();
             $('#rightOrWrong').text('Wrong!');
-            console.log(answers[Object.keys(answers)[game.questionIterator]][game.correctAnswerArray[game.questionIterator]])
             $('#correctAnswer').text(`The correct answer was: '${answers[Object.keys(answers)[game.questionIterator]][game.correctAnswerArray[game.questionIterator]]}'`);
             $('#resultImage').html(`<img class='img-fluid' src='assets/images/${incorrectAnswerImages[game.questionIterator]}'>`);
         },
 
         reset: function() {
-
+            game.questionIterator =  0
+            game.numberOfCorrectAnswers = 0
+            game.numberOfIncorrectAnswers = 0
+            $('.questionBlock').hide();
+            $('.resultBlock').hide();
+            $('.endBlock').hide();
+            $('#time-remaining').empty();
+            $('#start-button').show();
         }
     }
 
@@ -106,7 +111,7 @@ $(document).ready(function() {
     });
 
     $('.questionBlock').on('click', 'button.answers',function() {
-        delayNextQuestion = setTimeout(game.showQuestion,4000);
+        delayNextQuestion = setTimeout(game.showQuestion,1000);
         $('#answer').empty();
         clearInterval(intervalId);
 
@@ -124,6 +129,10 @@ $(document).ready(function() {
 
         game.questionIterator++;
 
+    });
+
+    $('#reset-button').on('click', function() {
+        game.reset();
     });
 
 });
