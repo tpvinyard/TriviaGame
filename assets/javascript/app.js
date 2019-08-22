@@ -52,6 +52,18 @@ $(document).ready(function() {
         countDown: function() {
             timeLeft--;
             $("#time-remaining").text(`Time remaining: ${timeLeft} seconds`);
+            if (timeLeft === 0) {
+                delayNextQuestion = setTimeout(game.showQuestion,1000);
+                $('#answer').empty();
+                clearInterval(intervalId);
+                $('.questionBlock').hide();
+                $('.resultBlock').show();
+                $('#rightOrWrong').text('Time\'s up!');
+                $('#correctAnswer').text(`The correct answer was: '${answers[Object.keys(answers)[game.questionIterator]][game.correctAnswerArray[game.questionIterator]]}'`);
+                $('#resultImage').html(`<img class='img-fluid' src='assets/images/${incorrectAnswerImages[game.questionIterator]}'>`);
+                game.questionIterator++;
+                game.numberOfIncorrectAnswers++;
+            }
 
         },
 
