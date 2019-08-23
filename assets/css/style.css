@@ -7,6 +7,26 @@ body {
     height: 500px;
     text-align: center;
     padding-top: 30px;
+    border-style: outset;
+}
+
+.btn-primary {
+    background-color: #70D1FE;
+    color: black;
+}
+
+.answers {
+    margin-top: 10px;
+}
+
+.endBlock, .resultBlock {
+    font-size: 150%;
+    font-style: bold;
+}
+
+img {
+    height: 300px;
+    width: 300px;
 }
 
 .center {
@@ -17,4 +37,12 @@ body {
 
 #area {
     height: 100vh;
+}
+
+#start-button {
+    margin-top: 150px;
+}
+
+#reset-button {
+    margin-top: 50px;
 }
