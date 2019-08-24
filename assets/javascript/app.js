@@ -94,7 +94,7 @@ $(document).ready(function() {
             $('#correctAnswer').empty();
             $('.resultBlock').show();
             $('#rightOrWrong').text('Correct!');
-            $('#resultImage').html(`<img class='img-fluid' src='assets/images/${correctAnswerImages[game.questionIterator]}'>`);
+            $('#resultImage').html(`<img class='img-fluid gif' src='assets/images/${correctAnswerImages[game.questionIterator]}'>`);
         },
 
         showIncorrect: function() {
@@ -102,7 +102,7 @@ $(document).ready(function() {
             $('.resultBlock').show();
             $('#rightOrWrong').text('Wrong!');
             $('#correctAnswer').text(`The correct answer was: '${answers[Object.keys(answers)[game.questionIterator]][game.correctAnswerArray[game.questionIterator]]}'`);
-            $('#resultImage').html(`<img class='img-fluid' src='assets/images/${incorrectAnswerImages[game.questionIterator]}'>`);
+            $('#resultImage').html(`<img class='img-fluid gif' src='assets/images/${incorrectAnswerImages[game.questionIterator]}'>`);
         },
 
         reset: function() {
