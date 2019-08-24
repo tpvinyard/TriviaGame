@@ -123,7 +123,7 @@ $(document).ready(function() {
     });
 
     $('.questionBlock').on('click', 'button.answers',function() {
-        delayNextQuestion = setTimeout(game.showQuestion,1000);
+        delayNextQuestion = setTimeout(game.showQuestion,4000);
         $('#answer').empty();
         clearInterval(intervalId);
 

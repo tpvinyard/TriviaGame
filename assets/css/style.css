@@ -41,6 +41,8 @@ img {
 
 #start-button {
     margin-top: 150px;
+    width: 20%;
+    height: 15%;
 }
 
 #reset-button {
